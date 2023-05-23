@@ -15,8 +15,16 @@ const MyApp: AppType = ({ Component, pageProps }) => {
       withGlobalStyles
       withNormalizeCSS
       theme={{
-        primaryColor: "blue",
         colorScheme: "dark",
+        components: {
+          Card: {
+            styles: {
+              root: {
+                backgroundColor: theme.colors.dark[7],
+              },
+            },
+          },
+        },
       }}
     >
       <ClerkProvider

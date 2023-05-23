@@ -29,6 +29,7 @@ export function HeaderMegaMenu() {
           quality={100}
         />
       </Link>
+
       {isSignedIn ? <UserMenu /> : <AuthButtons />}
     </Group>
   );

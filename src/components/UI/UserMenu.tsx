@@ -7,7 +7,7 @@ import {
   Group,
   Text,
 } from "@mantine/core";
-import { ChevronDown, LogOut, Settings, User } from "lucide-react";
+import { ChevronDown, Home, LogOut, Settings, User } from "lucide-react";
 import { useClerk } from "@clerk/nextjs";
 import Link from "next/link";
 
@@ -60,6 +60,9 @@ const UserMenu = () => {
       <Menu.Dropdown>
         <Menu.Label>{user?.primaryEmailAddress?.emailAddress}</Menu.Label>
 
+        <Link className="no-underline" href="/">
+          <Menu.Item icon={<Home size={20} />}>Home</Menu.Item>
+        </Link>
         <Link className="no-underline" href="/profile/ee">
           <Menu.Item icon={<User size={20} />}>Profile</Menu.Item>
         </Link>
