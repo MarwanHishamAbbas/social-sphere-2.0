@@ -45,7 +45,7 @@ const UserMenu = () => {
         >
           <Group spacing={7}>
             <Text weight={500} className="hidden lg:block" mr={2}>
-              {user?.username}
+              {user?.fullName}
             </Text>
             <Avatar
               src={user?.profileImageUrl}
