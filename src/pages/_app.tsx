@@ -21,6 +21,7 @@ const MyApp: AppType = ({ Component, pageProps }) => {
             styles: {
               root: {
                 backgroundColor: theme.colors.dark[7],
+                borderRadius: theme.radius.md,
               },
             },
           },

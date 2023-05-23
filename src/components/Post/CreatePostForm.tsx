@@ -1,11 +1,15 @@
+/* eslint-disable @typescript-eslint/no-misused-promises */
 import { useUser } from "@clerk/nextjs";
 import { Avatar, Button, Card, Group, Textarea } from "@mantine/core";
 import { useForm } from "@mantine/form";
-import { Send } from "lucide-react";
+import { notifications } from "@mantine/notifications";
+import { Check, Send, X } from "lucide-react";
+import { useState } from "react";
 import { api } from "~/utils/api";
 
 function CreatePostForm() {
   const { user } = useUser();
+  const [loading, setLoading] = useState<boolean>(false);
 
   const form = useForm({
     initialValues: {
@@ -14,19 +18,41 @@ function CreatePostForm() {
   });
 
   const createPost = api.post.create.useMutation();
+  const trpcUtils = api.useContext();
+
   const createPostHandler = () => {
+    if (form.values.content.length === 0) {
+      notifications.show({
+        title: "Post Creating Failed",
+        message: "The form shouldn't be empty",
+        icon: <X />,
+        color: "red",
+        radius: "md",
+      });
+      return;
+    }
+    setLoading(true);
     createPost.mutate(
       { postContent: form.values.content },
       {
-        onSuccess: () => {
+        onSuccess: async () => {
           form.reset();
+          await trpcUtils.post.getAll.invalidate();
+          setLoading(false);
+          notifications.show({
+            title: "Post Created Succesfully",
+            message: "Feed will update automatically",
+            icon: <Check />,
+            color: "green",
+            radius: "md",
+          });
         },
       }
     );
   };
 
   return (
-    <Card radius={"md"} className="mt-7 lg:p-7">
+    <Card className="mt-7 lg:p-7" withBorder>
       <form>
         <Group noWrap>
           <Avatar
@@ -48,6 +74,7 @@ function CreatePostForm() {
             leftIcon={<Send size={20} />}
             className="w-full lg:w-auto"
             mt={20}
+            loading={loading}
           >
             Post
           </Button>

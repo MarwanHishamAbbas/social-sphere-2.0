@@ -10,6 +10,7 @@ import {
   Container,
 } from "@mantine/core";
 import { HeaderMegaMenu } from "../common/HeaderMegaMenu";
+import { Notifications } from "@mantine/notifications";
 
 export default function Layout({ children }: { children: ReactNode }) {
   const theme = useMantineTheme();
@@ -47,6 +48,8 @@ export default function Layout({ children }: { children: ReactNode }) {
         </Header>
       }
     >
+      <Notifications />
+
       <Container>{children}</Container>
     </AppShell>
   );

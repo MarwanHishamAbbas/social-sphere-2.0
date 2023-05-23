@@ -5,7 +5,11 @@
 import { clerkClient } from "@clerk/nextjs";
 import { z } from "zod";
 
-import { createTRPCRouter, protectedProcedure } from "~/server/api/trpc";
+import {
+  createTRPCRouter,
+  protectedProcedure,
+  publicProcedure,
+} from "~/server/api/trpc";
 
 export const postsRouter = createTRPCRouter({
   create: protectedProcedure
@@ -13,7 +17,6 @@ export const postsRouter = createTRPCRouter({
     .mutation(async ({ input, ctx }) => {
       const currentUserId = ctx.auth.userId;
       const currentUserData = await clerkClient.users.getUser(currentUserId);
-
       const exsitingUser = await ctx.prisma.user.findUnique({
         where: {
           email: currentUserData.emailAddresses[0]?.emailAddress,
@@ -39,4 +42,13 @@ export const postsRouter = createTRPCRouter({
       });
       return createPost;
     }),
+  getAll: publicProcedure.query(({ ctx }) => {
+    const allPosts = ctx.prisma.post.findMany({
+      include: { user: true },
+      orderBy: {
+        createdAt: "desc",
+      },
+    });
+    return allPosts;
+  }),
 });

@@ -1,14 +1,15 @@
 import { useState } from "react";
-import { Box, Group, SegmentedControl, useMantineTheme } from "@mantine/core";
+import { Box, SegmentedControl, Stack, useMantineTheme } from "@mantine/core";
 import CreatePostForm from "../Post/CreatePostForm";
 import { useUser } from "@clerk/nextjs";
+import AllPosts from "../Post/AllPosts";
 
 const tabs = {
   explore: [
     {
       link: "",
       label: "Explore",
-      component: <h1>Explore</h1>,
+      component: <AllPosts />,
     },
   ],
   feed: [{ link: "", label: "Feed", component: <h1>Feed</h1> }],
@@ -51,7 +52,7 @@ export function Tabs() {
         ]}
       />
       {isSignedIn && <CreatePostForm />}
-      <Group mt="xl">{links}</Group>
+      <Stack mt="xl">{links}</Stack>
     </Box>
   );
 }
