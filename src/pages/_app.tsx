@@ -2,21 +2,37 @@ import { type AppType } from "next/app";
 
 import { api } from "~/utils/api";
 
-import { MantineProvider } from "@mantine/core";
+import { Container, MantineProvider, useMantineTheme } from "@mantine/core";
 import { ClerkProvider } from "@clerk/nextjs";
 import "~/styles/globals.css";
+import { dark } from "@clerk/themes";
+import { HeaderMegaMenu } from "~/components/common/HeaderTabs";
 
 const MyApp: AppType = ({ Component, pageProps }) => {
+  const theme = useMantineTheme();
   return (
     <MantineProvider
       withGlobalStyles
       withNormalizeCSS
       theme={{
+        primaryColor: "blue",
         colorScheme: "dark",
       }}
     >
-      <ClerkProvider {...pageProps}>
-        <Component {...pageProps} />
+      <ClerkProvider
+        appearance={{
+          baseTheme: dark,
+          variables: {
+            colorPrimary: theme.colors.blue["9"],
+            colorBackground: theme.colors.dark["7"],
+          },
+        }}
+        {...pageProps}
+      >
+        <HeaderMegaMenu />
+        <Container size={"xl"}>
+          <Component {...pageProps} />
+        </Container>
       </ClerkProvider>
     </MantineProvider>
   );
