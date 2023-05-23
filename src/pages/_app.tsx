@@ -6,7 +6,7 @@ import { Container, MantineProvider, useMantineTheme } from "@mantine/core";
 import { ClerkProvider } from "@clerk/nextjs";
 import "~/styles/globals.css";
 import { dark } from "@clerk/themes";
-import { HeaderMegaMenu } from "~/components/common/HeaderTabs";
+import { HeaderMegaMenu } from "~/components/common/HeaderMegaMenu";
 
 const MyApp: AppType = ({ Component, pageProps }) => {
   const theme = useMantineTheme();
@@ -30,7 +30,7 @@ const MyApp: AppType = ({ Component, pageProps }) => {
         {...pageProps}
       >
         <HeaderMegaMenu />
-        <Container size={"xl"}>
+        <Container mt={30}>
           <Component {...pageProps} />
         </Container>
       </ClerkProvider>
