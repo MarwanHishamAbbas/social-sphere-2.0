@@ -2,11 +2,11 @@ import { type AppType } from "next/app";
 
 import { api } from "~/utils/api";
 
-import { Container, MantineProvider, useMantineTheme } from "@mantine/core";
+import { MantineProvider, useMantineTheme } from "@mantine/core";
 import { ClerkProvider } from "@clerk/nextjs";
 import "~/styles/globals.css";
 import { dark } from "@clerk/themes";
-import { HeaderMegaMenu } from "~/components/common/HeaderMegaMenu";
+import Layout from "~/components/layout/Layout";
 
 const MyApp: AppType = ({ Component, pageProps }) => {
   const theme = useMantineTheme();
@@ -29,10 +29,9 @@ const MyApp: AppType = ({ Component, pageProps }) => {
         }}
         {...pageProps}
       >
-        <HeaderMegaMenu />
-        <Container mt={30}>
+        <Layout>
           <Component {...pageProps} />
-        </Container>
+        </Layout>
       </ClerkProvider>
     </MantineProvider>
   );

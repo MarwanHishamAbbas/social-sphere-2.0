@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Box, Group, SegmentedControl } from "@mantine/core";
+import { Box, Group, SegmentedControl, useMantineTheme } from "@mantine/core";
 
 const tabs = {
   explore: [
@@ -16,6 +16,7 @@ const tabs = {
 };
 
 export function Tabs() {
+  const theme = useMantineTheme();
   const [section, setSection] = useState<"explore" | "feed" | "likedbyme">(
     "explore"
   );
@@ -34,6 +35,7 @@ export function Tabs() {
   return (
     <Box>
       <SegmentedControl
+        bg={theme.colors.dark[7]}
         value={section}
         onChange={(value: "explore" | "feed" | "likedbyme") =>
           setSection(value)
