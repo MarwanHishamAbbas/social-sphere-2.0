@@ -1,6 +1,7 @@
 import { useAuth } from "@clerk/nextjs";
+import type { User } from "@clerk/nextjs/server";
 import { Avatar, Text, Button, Card } from "@mantine/core";
-import type { User } from "@prisma/client";
+
 import Link from "next/link";
 
 interface UserCardProps {
@@ -18,9 +19,9 @@ export function UserCard({ user }: UserCardProps) {
         backgroundColor: theme.colors.dark[8],
       })}
     >
-      <Avatar src={user.profileImage} size={120} radius={120} mx="auto" />
+      <Avatar src={user.profileImageUrl} size={120} radius={120} mx="auto" />
       <Text ta="center" fz="lg" weight={500} mt="md">
-        {user.fullName}
+        {[user.firstName, user.lastName].join(" ")}
       </Text>
       <Text
         ta="center"
@@ -29,7 +30,7 @@ export function UserCard({ user }: UserCardProps) {
         })}
         fz="sm"
       >
-        {user.email}
+        {user.emailAddresses[0]?.emailAddress}
       </Text>
 
       {user.id === userId ? (

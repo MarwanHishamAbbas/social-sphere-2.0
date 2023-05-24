@@ -27,7 +27,7 @@ export default function PostCard({ post, user }: PostCardProps) {
   const theme = useMantineTheme();
   const { userId } = useAuth();
 
-  const postComments = api.comment.getAll.useQuery({ postId: post.id }, {});
+  const postComments = api.comment.getAll.useQuery({ postId: post.id });
 
   return (
     <Card withBorder>
@@ -35,7 +35,7 @@ export default function PostCard({ post, user }: PostCardProps) {
         <Group>
           <Avatar radius={"xl"} src={user.profileImage} />
           <Stack spacing={0}>
-            <Text>{user.username}</Text>
+            <Text>{user.fullName}</Text>
             <Text size={12} color={theme.colors.dark[2]}>
               {user.email}
             </Text>
