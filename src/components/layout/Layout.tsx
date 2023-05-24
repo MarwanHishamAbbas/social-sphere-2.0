@@ -45,11 +45,7 @@ export default function Layout({ children }: { children: ReactNode }) {
       }
       header={
         <Header height={100} className="px-3 lg:px-20">
-          <div
-            style={{ display: "flex", alignItems: "center", height: "100%" }}
-          >
-            <HeaderMegaMenu />
-          </div>
+          <HeaderMegaMenu />
         </Header>
       }
       footer={<Footer />}

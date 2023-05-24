@@ -1,5 +1,11 @@
 import { useState } from "react";
-import { Box, SegmentedControl, Stack, useMantineTheme } from "@mantine/core";
+import {
+  Box,
+  SegmentedControl,
+  Stack,
+  Title,
+  useMantineTheme,
+} from "@mantine/core";
 import CreatePostForm from "../Post/CreatePostForm";
 import { useUser } from "@clerk/nextjs";
 import AllPosts from "../Post/AllPosts";
@@ -50,11 +56,19 @@ export function Tabs() {
         data={[
           { label: "Explore", value: "explore" },
           { label: "Suggestions", value: "suggestions" },
-          { label: "Liked", value: "saved" },
+          { label: "Saved", value: "saved" },
         ]}
       />
-      {isSignedIn && <CreatePostForm />}
-      <Stack mt="xl">{links}</Stack>
+      {isSignedIn ? (
+        <>
+          <CreatePostForm />
+          <Stack mt="xl">{links}</Stack>
+        </>
+      ) : (
+        <Title size={40} mt={40} align="center">
+          Sign in to use it
+        </Title>
+      )}
     </Box>
   );
 }

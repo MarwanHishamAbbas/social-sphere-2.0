@@ -1,3 +1,7 @@
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
+import logo from "../../../public/logo.svg";
+import brand from "../../../public/brand.svg";
+
 import { Group } from "@mantine/core";
 import Image from "next/image";
 import AuthButtons from "../UI/AuthButtons";
@@ -8,11 +12,11 @@ import Link from "next/link";
 export function HeaderMegaMenu() {
   const { isSignedIn } = useUser();
   return (
-    <Group position="apart" w="100%">
+    <Group position="apart" w="100%" h="100%">
       <Link href="/">
         <Image
           className="md:hidden"
-          src="/logo.svg"
+          src={logo}
           alt="Logo"
           width={45}
           height={45}
@@ -21,7 +25,7 @@ export function HeaderMegaMenu() {
         />
         <Image
           className="hidden h-1/2 w-1/2 md:block"
-          src="/brand.svg"
+          src={brand}
           alt="Brand"
           width={1000}
           height={1000}

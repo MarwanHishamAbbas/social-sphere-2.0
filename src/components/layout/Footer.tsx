@@ -1,7 +1,10 @@
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import { createStyles, Container, Group, ActionIcon, rem } from "@mantine/core";
 import { Twitter, Youtube, Instagram } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import logo from "../../../public/logo.svg";
+import brand from "../../../public/brand.svg";
 
 const useStyles = createStyles((theme) => ({
   footer: {
@@ -35,7 +38,7 @@ export function Footer() {
       <Link href="/">
         <Image
           className="md:hidden"
-          src="/logo.svg"
+          src={logo}
           alt="Logo"
           width={45}
           height={45}
@@ -44,7 +47,7 @@ export function Footer() {
         />
         <Image
           className="hidden h-1/2 w-1/2 md:block"
-          src="/brand.svg"
+          src={brand}
           alt="Brand"
           width={1000}
           height={1000}

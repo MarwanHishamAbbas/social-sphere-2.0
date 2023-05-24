@@ -1,7 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unsafe-call */
-/* eslint-disable @typescript-eslint/no-unsafe-return */
-/* eslint-disable @typescript-eslint/no-unsafe-member-access */
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import { clerkClient } from "@clerk/nextjs";
 import { z } from "zod";
 
@@ -32,7 +28,7 @@ export const postsRouter = createTRPCRouter({
         },
       });
       if (exsitingUser) {
-        console.log(exsitingUser.email);
+        return;
       } else {
         await ctx.prisma.user.create({
           data: {

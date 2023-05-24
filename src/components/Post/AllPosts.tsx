@@ -5,12 +5,12 @@ import PostCard from "./PostCard";
 export default function AllPosts() {
   const allPosts = api.post.getAll.useQuery();
 
-  if (allPosts.isLoading) {
+  if (allPosts.isFetching) {
     return <Loader size={50} className="mx-auto w-full" />;
   }
   if (allPosts.data?.length === 0) {
     return (
-      <Title align="center" size={40}>
+      <Title align="center" size={50}>
         No Posts
       </Title>
     );
