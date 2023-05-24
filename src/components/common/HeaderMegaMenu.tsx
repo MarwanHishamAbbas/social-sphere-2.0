@@ -16,7 +16,6 @@ export function HeaderMegaMenu() {
           alt="Logo"
           width={45}
           height={45}
-          priority
           quality={100}
         />
         <Image
@@ -25,7 +24,6 @@ export function HeaderMegaMenu() {
           alt="Brand"
           width={0}
           height={0}
-          priority
           quality={100}
         />
       </Link>

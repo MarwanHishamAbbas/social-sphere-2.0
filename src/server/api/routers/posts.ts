@@ -42,6 +42,14 @@ export const postsRouter = createTRPCRouter({
       });
       return createPost;
     }),
+  deletePost: protectedProcedure
+    .input(z.object({ postId: z.string() }))
+    .mutation(async ({ input, ctx }) => {
+      const deletePost = await ctx.prisma.post.delete({
+        where: { id: input.postId },
+      });
+      return deletePost;
+    }),
   getAll: publicProcedure.query(({ ctx }) => {
     const allPosts = ctx.prisma.post.findMany({
       include: { user: true },
