@@ -17,6 +17,7 @@ export function HeaderMegaMenu() {
           width={45}
           height={45}
           quality={100}
+          priority
         />
         <Image
           className="hidden h-1/2 w-1/2 md:block"
@@ -25,6 +26,7 @@ export function HeaderMegaMenu() {
           width={0}
           height={0}
           quality={100}
+          priority
         />
       </Link>
 
