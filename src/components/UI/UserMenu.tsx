@@ -33,7 +33,7 @@ const UserMenu = () => {
   const [userMenuOpened, setUserMenuOpened] = useState(false);
   return (
     <Menu
-      width={260}
+      width={250}
       position="bottom-end"
       transitionProps={{ transition: "pop-top-right" }}
       onClose={() => setUserMenuOpened(false)}
