@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-misused-promises */
 import { ActionIcon, Menu, useMantineTheme } from "@mantine/core";
 
-import { type Post } from "@prisma/client";
+import type { Post } from "@prisma/client";
 import { Bookmark, Loader2, MoreVertical, Trash2 } from "lucide-react";
 import React, { useState } from "react";
 import { api } from "~/utils/api";
