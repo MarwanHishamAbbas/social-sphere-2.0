@@ -12,6 +12,15 @@ import {
 } from "~/server/api/trpc";
 
 export const postsRouter = createTRPCRouter({
+  getAll: publicProcedure.query(({ ctx }) => {
+    const allPosts = ctx.prisma.post.findMany({
+      include: { user: true },
+      orderBy: {
+        createdAt: "desc",
+      },
+    });
+    return allPosts;
+  }),
   create: protectedProcedure
     .input(z.object({ postContent: z.string() }))
     .mutation(async ({ input, ctx }) => {
@@ -42,6 +51,7 @@ export const postsRouter = createTRPCRouter({
       });
       return createPost;
     }),
+
   deletePost: protectedProcedure
     .input(z.object({ postId: z.string() }))
     .mutation(async ({ input, ctx }) => {
@@ -50,13 +60,4 @@ export const postsRouter = createTRPCRouter({
       });
       return deletePost;
     }),
-  getAll: publicProcedure.query(({ ctx }) => {
-    const allPosts = ctx.prisma.post.findMany({
-      include: { user: true },
-      orderBy: {
-        createdAt: "desc",
-      },
-    });
-    return allPosts;
-  }),
 });

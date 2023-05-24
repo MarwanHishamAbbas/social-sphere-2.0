@@ -1,11 +1,15 @@
+/* eslint-disable @typescript-eslint/no-misused-promises */
 import { useUser } from "@clerk/nextjs";
 import { Avatar, Button, Group, Textarea } from "@mantine/core";
 import { useForm } from "@mantine/form";
-import { MessageCircle } from "lucide-react";
+import { notifications } from "@mantine/notifications";
+import { Check, MessageCircle, X } from "lucide-react";
+import { useState } from "react";
 import { api } from "~/utils/api";
 
-function CreateCommentForm() {
+function CreatePostForm({ postId }: { postId: string }) {
   const { user } = useUser();
+  const [loading, setLoading] = useState<boolean>(false);
 
   const form = useForm({
     initialValues: {
@@ -13,13 +17,35 @@ function CreateCommentForm() {
     },
   });
 
-  const createPost = api.post.create.useMutation();
+  const createComment = api.comment.create.useMutation();
+  const trpcUtils = api.useContext();
+
   const createCommentHandler = () => {
-    createPost.mutate(
-      { postContent: form.values.content },
+    if (form.values.content.length === 0) {
+      notifications.show({
+        title: "Comment Creating Failed",
+        message: "The form shouldn't be empty",
+        icon: <X />,
+        color: "red",
+        radius: "md",
+      });
+      return;
+    }
+    setLoading(true);
+    createComment.mutate(
+      { commentContent: form.values.content, postId },
       {
-        onSuccess: () => {
+        onSuccess: async () => {
           form.reset();
+          await trpcUtils.comment.getAll.invalidate();
+          setLoading(false);
+          notifications.show({
+            title: "Comment Added Succesfully",
+            message: "Thanks for the comment",
+            icon: <Check />,
+            color: "green",
+            radius: "md",
+          });
         },
       }
     );
@@ -27,7 +53,7 @@ function CreateCommentForm() {
 
   return (
     <form>
-      <Group align="center">
+      <Group>
         <Avatar
           radius={"xl"}
           src={user?.profileImageUrl}
@@ -42,8 +68,9 @@ function CreateCommentForm() {
         />
         <Button
           onClick={createCommentHandler}
-          leftIcon={<MessageCircle size={15} />}
+          leftIcon={<MessageCircle size={20} />}
           className="w-full lg:w-auto"
+          loading={loading}
         >
           Comment
         </Button>
@@ -52,4 +79,4 @@ function CreateCommentForm() {
   );
 }
 
-export default CreateCommentForm;
+export default CreatePostForm;

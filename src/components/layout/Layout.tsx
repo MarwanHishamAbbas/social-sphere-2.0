@@ -11,6 +11,7 @@ import {
 } from "@mantine/core";
 import { HeaderMegaMenu } from "../common/HeaderMegaMenu";
 import { Notifications } from "@mantine/notifications";
+import { Footer } from "./Footer";
 
 export default function Layout({ children }: { children: ReactNode }) {
   const theme = useMantineTheme();
@@ -23,15 +24,19 @@ export default function Layout({ children }: { children: ReactNode }) {
         },
       }}
       navbar={
-        <Navbar p="md" className="hidden lg:block" width={{ sm: 200, lg: 300 }}>
+        <Navbar
+          p="xl"
+          className="hidden 2xl:block"
+          width={{ sm: 200, lg: 300 }}
+        >
           <Text></Text>
         </Navbar>
       }
       aside={
         <MediaQuery smallerThan="sm" styles={{ display: "none" }}>
           <Aside
-            p="md"
-            className="hidden lg:block"
+            p="xl"
+            className="hidden 2xl:block"
             width={{ sm: 200, lg: 300 }}
           >
             <Text></Text>
@@ -47,10 +52,10 @@ export default function Layout({ children }: { children: ReactNode }) {
           </div>
         </Header>
       }
+      footer={<Footer />}
     >
       <Notifications />
-
-      <Container>{children}</Container>
+      <Container mb={40}>{children}</Container>
     </AppShell>
   );
 }

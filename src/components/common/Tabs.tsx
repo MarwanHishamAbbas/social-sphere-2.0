@@ -12,14 +12,16 @@ const tabs = {
       component: <AllPosts />,
     },
   ],
-  feed: [{ link: "", label: "Feed", component: <h1>Feed</h1> }],
-  likedbyme: [{ link: "", label: "Liked By Me", component: <h1>Liked</h1> }],
+  suggestions: [
+    { link: "", label: "Suggestions", component: <h1>Suggestions Users</h1> },
+  ],
+  saved: [{ link: "", label: "Saved", component: <h1>Saved Posts</h1> }],
 };
 
 export function Tabs() {
   const { isSignedIn } = useUser();
   const theme = useMantineTheme();
-  const [section, setSection] = useState<"explore" | "feed" | "likedbyme">(
+  const [section, setSection] = useState<"explore" | "suggestions" | "saved">(
     "explore"
   );
 
@@ -39,7 +41,7 @@ export function Tabs() {
       <SegmentedControl
         bg={theme.colors.dark[7]}
         value={section}
-        onChange={(value: "explore" | "feed" | "likedbyme") =>
+        onChange={(value: "explore" | "suggestions" | "saved") =>
           setSection(value)
         }
         transitionTimingFunction="ease"
@@ -47,8 +49,8 @@ export function Tabs() {
         className="mx-auto lg:w-1/2"
         data={[
           { label: "Explore", value: "explore" },
-          { label: "Feed", value: "feed" },
-          { label: "Liked", value: "likedbyme" },
+          { label: "Suggestions", value: "suggestions" },
+          { label: "Liked", value: "saved" },
         ]}
       />
       {isSignedIn && <CreatePostForm />}

@@ -1,4 +1,4 @@
-import { Loader, Stack } from "@mantine/core";
+import { Loader, Stack, Title } from "@mantine/core";
 import { api } from "~/utils/api";
 import PostCard from "./PostCard";
 
@@ -7,6 +7,13 @@ export default function AllPosts() {
 
   if (allPosts.isLoading) {
     return <Loader size={50} className="mx-auto w-full" />;
+  }
+  if (allPosts.data?.length === 0) {
+    return (
+      <Title align="center" size={40}>
+        No Posts
+      </Title>
+    );
   }
 
   return (

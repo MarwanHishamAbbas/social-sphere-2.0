@@ -23,8 +23,8 @@ export function HeaderMegaMenu() {
           className="hidden h-1/2 w-1/2 md:block"
           src="/brand.svg"
           alt="Brand"
-          width={0}
-          height={0}
+          width={1000}
+          height={1000}
           quality={100}
           priority
         />
