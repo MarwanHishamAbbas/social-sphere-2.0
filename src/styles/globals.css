@@ -1,2 +1,6 @@
 @tailwind components;
 @tailwind utilities;
+
+a {
+  @apply text-white no-underline;
+}

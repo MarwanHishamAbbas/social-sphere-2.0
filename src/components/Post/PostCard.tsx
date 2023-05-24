@@ -47,7 +47,7 @@ export default function PostCard({ post, user }: PostCardProps) {
             </Group>
           </Stack>
         </Group>
-        {userId === post.userId && <PostOptions postId={post.id} />}
+        {userId === post.userId && <PostOptions post={post} />}
       </Group>
       <Text>{post.postContent}</Text>
       <Divider my={20} />

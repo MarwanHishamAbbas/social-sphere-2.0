@@ -17,6 +17,16 @@ export const postsRouter = createTRPCRouter({
     });
     return allPosts;
   }),
+  getSaved: publicProcedure.query(async ({ ctx }) => {
+    const savedPosts = await ctx.prisma.post.findMany({
+      where: { saved: true, userId: ctx.auth.userId as string },
+      include: { user: true },
+      orderBy: {
+        createdAt: "desc",
+      },
+    });
+    return savedPosts;
+  }),
   create: protectedProcedure
     .input(z.object({ postContent: z.string() }))
     .mutation(async ({ input, ctx }) => {
@@ -34,6 +44,10 @@ export const postsRouter = createTRPCRouter({
             email: currentUserData.emailAddresses[0]?.emailAddress as string,
             profileImage: currentUserData.profileImageUrl,
             username: currentUserData.username as string,
+            fullName: [
+              currentUserData.firstName,
+              currentUserData.lastName,
+            ].join(" "),
           },
         });
       }
@@ -44,6 +58,19 @@ export const postsRouter = createTRPCRouter({
         },
       });
       return createPost;
+    }),
+  toggleSave: protectedProcedure
+    .input(z.object({ postId: z.string() }))
+    .mutation(async ({ input, ctx }) => {
+      const currentPost = await ctx.prisma.post.findUnique({
+        where: { id: input.postId },
+      });
+      console.log(currentPost);
+      const toggleSave = await ctx.prisma.post.update({
+        where: { id: input.postId },
+        data: { saved: !currentPost?.saved },
+      });
+      return toggleSave;
     }),
 
   deletePost: protectedProcedure

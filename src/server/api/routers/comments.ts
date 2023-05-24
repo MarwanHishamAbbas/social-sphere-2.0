@@ -37,6 +37,10 @@ export const commentsRouter = createTRPCRouter({
             email: currentUserData.emailAddresses[0]?.emailAddress as string,
             profileImage: currentUserData.profileImageUrl,
             username: currentUserData.username as string,
+            fullName: [
+              currentUserData.firstName,
+              currentUserData.lastName,
+            ].join(" "),
           },
         });
       }

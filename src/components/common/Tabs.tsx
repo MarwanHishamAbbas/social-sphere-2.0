@@ -6,9 +6,10 @@ import {
   Title,
   useMantineTheme,
 } from "@mantine/core";
-import CreatePostForm from "../Post/CreatePostForm";
 import { useUser } from "@clerk/nextjs";
 import AllPosts from "../Post/AllPosts";
+import SavedPosts from "../Post/SavedPosts";
+import Suggestions from "../users/Suggestions";
 
 const tabs = {
   explore: [
@@ -18,10 +19,8 @@ const tabs = {
       component: <AllPosts />,
     },
   ],
-  suggestions: [
-    { link: "", label: "Suggestions", component: <h1>Suggestions Users</h1> },
-  ],
-  saved: [{ link: "", label: "Saved", component: <h1>Saved Posts</h1> }],
+  suggestions: [{ link: "", label: "Suggestions", component: <Suggestions /> }],
+  saved: [{ link: "", label: "Saved", component: <SavedPosts /> }],
 };
 
 export function Tabs() {
@@ -60,10 +59,7 @@ export function Tabs() {
         ]}
       />
       {isSignedIn ? (
-        <>
-          <CreatePostForm />
-          <Stack mt="xl">{links}</Stack>
-        </>
+        <Stack mt={40}>{links}</Stack>
       ) : (
         <Title size={40} mt={40} align="center">
           Sign in to use it

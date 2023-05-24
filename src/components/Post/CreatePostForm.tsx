@@ -52,7 +52,7 @@ function CreatePostForm() {
   };
 
   return (
-    <Card className="mt-7 lg:p-7" withBorder>
+    <Card className="lg:p-7" withBorder>
       <form>
         <Group noWrap>
           <Avatar

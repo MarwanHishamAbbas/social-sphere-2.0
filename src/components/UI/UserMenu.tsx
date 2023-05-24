@@ -6,6 +6,7 @@ import {
   UnstyledButton,
   Group,
   Text,
+  Stack,
 } from "@mantine/core";
 import { ChevronDown, Home, LogOut, Settings, User } from "lucide-react";
 import { useClerk } from "@clerk/nextjs";
@@ -28,7 +29,7 @@ const useStyles = createStyles((theme) => ({
 }));
 const UserMenu = () => {
   const { user, openUserProfile, signOut } = useClerk();
-  const { classes, cx } = useStyles();
+  const { classes, cx, theme } = useStyles();
   const [userMenuOpened, setUserMenuOpened] = useState(false);
   return (
     <Menu
@@ -43,10 +44,13 @@ const UserMenu = () => {
         <UnstyledButton
           className={cx(classes.user, { [classes.userActive]: userMenuOpened })}
         >
-          <Group spacing={7}>
-            <Text weight={500} className="hidden lg:block" mr={2}>
-              {user?.fullName}
-            </Text>
+          <Group spacing={10}>
+            <Stack className="hidden lg:block" spacing={0} mr={2}>
+              <Text weight={500}>{user?.fullName}</Text>
+              <Text color={theme.colors.dark[3]}>
+                {user?.emailAddresses[0]?.emailAddress}
+              </Text>
+            </Stack>
             <Avatar
               src={user?.profileImageUrl}
               alt={user?.username as string}
@@ -60,10 +64,10 @@ const UserMenu = () => {
       <Menu.Dropdown>
         <Menu.Label>{user?.primaryEmailAddress?.emailAddress}</Menu.Label>
 
-        <Link className="no-underline" href="/">
+        <Link href="/">
           <Menu.Item icon={<Home size={20} />}>Home</Menu.Item>
         </Link>
-        <Link className="no-underline" href="/profile/ee">
+        <Link href="/profile/ee">
           <Menu.Item icon={<User size={20} />}>Profile</Menu.Item>
         </Link>
         <Menu.Item

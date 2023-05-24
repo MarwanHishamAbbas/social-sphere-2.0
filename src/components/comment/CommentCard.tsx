@@ -25,7 +25,7 @@ export function CommentCard({
       <Group>
         <Avatar src={user.profileImage} alt={user.username} radius="xl" />
         <div>
-          <Text size="sm">{user.username}</Text>
+          <Text size="sm">{user.fullName}</Text>
           <Text size={14} color={theme.colors.dark[2]}>
             {user.email}
           </Text>
