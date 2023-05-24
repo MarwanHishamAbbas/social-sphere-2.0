@@ -27,9 +27,7 @@ export const postsRouter = createTRPCRouter({
           email: currentUserData.emailAddresses[0]?.emailAddress,
         },
       });
-      if (exsitingUser) {
-        return;
-      } else {
+      if (!exsitingUser) {
         await ctx.prisma.user.create({
           data: {
             id: currentUserData.id,

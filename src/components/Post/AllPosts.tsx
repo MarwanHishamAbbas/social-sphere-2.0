@@ -5,7 +5,7 @@ import PostCard from "./PostCard";
 export default function AllPosts() {
   const allPosts = api.post.getAll.useQuery();
 
-  if (allPosts.isFetching) {
+  if (allPosts.isLoading) {
     return <Loader size={50} className="mx-auto w-full" />;
   }
   if (allPosts.data?.length === 0) {

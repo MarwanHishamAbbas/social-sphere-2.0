@@ -10,7 +10,7 @@ import {
 } from "@mantine/core";
 import type { User, Post } from "@prisma/client";
 import { Clock } from "lucide-react";
-import React, { Fragment } from "react";
+
 import CreateCommentForm from "../comment/CreateCommentForm";
 import { CommentCard } from "../comment/CommentCard";
 import { formatDistance } from "date-fns";
@@ -25,9 +25,9 @@ interface PostCardProps {
 export default function PostCard({ post, user }: PostCardProps) {
   const timestamp = formatDistance(new Date(post.createdAt), new Date());
   const theme = useMantineTheme();
-  const { userId, isSignedIn } = useAuth();
+  const { userId } = useAuth();
 
-  const postComments = api.comment.getAll.useQuery({ postId: post.id });
+  const postComments = api.comment.getAll.useQuery({ postId: post.id }, {});
 
   return (
     <Card withBorder>
@@ -51,11 +51,9 @@ export default function PostCard({ post, user }: PostCardProps) {
       </Group>
       <Text>{post.postContent}</Text>
       <Divider my={20} />
-      {isSignedIn && <CreateCommentForm postId={post.id} />}
+      <CreateCommentForm postId={post.id} />
       {postComments.data?.map((comment) => (
-        <Fragment key={comment.id}>
-          <CommentCard comment={comment} user={comment.user} />
-        </Fragment>
+        <CommentCard key={comment.id} comment={comment} user={comment.user} />
       ))}
     </Card>
   );
