@@ -31,6 +31,16 @@ function CreatePostForm() {
       });
       return;
     }
+    if (form.values.content.length > 200) {
+      notifications.show({
+        title: "Post Creating Failed",
+        message: "The post is too long",
+        icon: <X />,
+        color: "red",
+        radius: "md",
+      });
+      return;
+    }
     setLoading(true);
     createPost.mutate(
       { postContent: form.values.content },

@@ -31,6 +31,16 @@ function CreatePostForm({ postId }: { postId: string }) {
       });
       return;
     }
+    if (form.values.content.length > 200) {
+      notifications.show({
+        title: "Post Creating Failed",
+        message: "The comment is too long",
+        icon: <X />,
+        color: "red",
+        radius: "md",
+      });
+      return;
+    }
     setLoading(true);
     createComment.mutate(
       { commentContent: form.values.content, postId },

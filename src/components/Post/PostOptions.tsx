@@ -58,7 +58,9 @@ export default function PostOptions({ post }: { post: Post }) {
                   ? theme.colors.yellow[5]
                   : theme.colors.dark[1]
               }
-              fill={saved || post.saved ? theme.colors.yellow[5] : ""}
+              fill={
+                saved || post.saved ? theme.colors.yellow[5] : "transparent"
+              }
             />
           }
         >

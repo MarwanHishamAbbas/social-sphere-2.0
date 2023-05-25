@@ -53,7 +53,10 @@ export function Tabs() {
         fullWidth
         className="mx-auto lg:w-1/2"
         data={[
-          { label: "Explore", value: "explore" },
+          {
+            label: "Explore",
+            value: "explore",
+          },
           { label: "Suggestions", value: "suggestions" },
           { label: "Saved", value: "saved" },
         ]}
